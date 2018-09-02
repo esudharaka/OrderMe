@@ -5,6 +5,8 @@
  */
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import {customers} from "./tests/Items";
+import {onItemSelect} from "./actions";
 // import './style.scss';
 
 export default class CustomerPage extends React.Component {
@@ -14,7 +16,7 @@ export default class CustomerPage extends React.Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, customers, selectItem } = this.props;
     return (
       <div>
         <Helmet>
@@ -26,31 +28,49 @@ export default class CustomerPage extends React.Component {
         </Helmet>
         <div className="container">
           <h2>Order</h2>
-          <p>Placing the order with following fields</p>
-          <form>
             <div className="form-group">
-              <label htmlFor="usr">Name:</label>
-              <input type="text" className="form-control" id="usr"/>
+              <label htmlFor="usr">Select Customer</label>
+              <div className="dropdown">
+                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select Customer
+                </button>
+                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {
+                    customers.map((customer)=> {
+                      return <a className="dropdown-item"  key={ `customer_${customer.get('id')}`} href="#" onClick={
+                        () => {
+
+                        }
+                      }>{customer.get('firstName')}</a>
+                    })
+                  }
+                </div>
+              </div>
             </div>
 
 
+          <div className="form-group">
+            <label htmlFor="usr">Select Customer</label>
             <div className="dropdown">
               <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Select Item
               </button>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              {
-                items.map((item)=> {
-                  return <a className="dropdown-item"  key={item.get('id')} href="#">{item.get('name')}</a>
-                })
-              }
+                {
+                  items.map((item)=> {
+                    return <a className="dropdown-item"  id={item.get('id')}  key={ `item_${item.get('id')}`} href="#"
+                              onClick={ (target) => { selectItem(target.currentTarget.id) }
+                              }
+                    >{item.get('name')}</a>
+                  })
+                }
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">Save</button>
-          </form>
+          </div>
 
-
+            <button type="submit" className="btn btn-primary">Add To Order</button>
         </div>
       </div>
     );

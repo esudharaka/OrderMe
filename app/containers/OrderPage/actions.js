@@ -15,7 +15,7 @@
  *    }
  */
 
-import { CHANGE_USERNAME, LOAD_ORDER_PAGE, ITEM_LOADED, CUSTOMERS_LOADED } from './constants';
+import { CHANGE_USERNAME, LOAD_ORDER_PAGE, ITEM_LOADED, CUSTOMERS_LOADED, ITEM_SELECTED } from './constants';
 
 /**
  * Changes the input field of the form
@@ -51,4 +51,12 @@ export function customersLoaded(customers, error) {
     data: customers,
     error
   }
+}
+
+export function onItemSelect(itemId, error) {
+  return {
+    type: ITEM_SELECTED,
+    data: parseInt(itemId),
+    error,
+  };
 }

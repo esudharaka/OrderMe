@@ -6,12 +6,28 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import logger from 'redux-logger'
+import {createLogger} from 'redux-logger'
 import createReducer from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState = {}, history) {
+
+  const logger = createLogger({
+    // Transform Immutable objects into JSON
+    transformer: (state) => {
+      const newState = {};
+      for (let i of Object.keys(state)) {
+        if (Immutable.Iterable.isIterable(state[i])) {
+          newState[i] = state[i].toJS();
+        } else {
+          newState[i] = state[i];
+        }
+      }
+      return newState;
+    }
+  });
+
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state

@@ -15,7 +15,13 @@ const makeSelectAllItems = () => createSelector(
   (orderState) => orderState.get('items')
 );
 
+const makeSelectAllCustomers = () => createSelector(
+  selectOrder,
+  (orderState) => orderState.get('customers')
+);
+
 export {
   selectOrder,
   makeSelectAllItems,
+  makeSelectAllCustomers,
 };
