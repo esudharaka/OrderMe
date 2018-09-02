@@ -16,7 +16,7 @@ export default class CustomerPage extends React.Component {
   }
 
   render() {
-    const { items, customers, selectItem } = this.props;
+    const { items, customers, selectItem, changeItemQty, selectedQty, addItemToOrder } = this.props;
     return (
       <div>
         <Helmet>
@@ -70,7 +70,15 @@ export default class CustomerPage extends React.Component {
             </div>
           </div>
 
-            <button type="submit" className="btn btn-primary">Add To Order</button>
+          <div className="form-group">
+            <label htmlFor="pwd">Quantity</label>
+            <input type="text"  value={selectedQty} className="form-control" id="pwd"
+                   onChange={({target: {value}}) => {
+                     changeItemQty(value);
+                   }}/>
+          </div>
+
+            <button type="submit" onClick={ addItemToOrder ()} className="btn btn-primary">Add To Order</button>
         </div>
       </div>
     );

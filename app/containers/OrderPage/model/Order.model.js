@@ -18,5 +18,3 @@ export const  LineItemModel = Record({
   qty: null,
   itemPrice: null,
 });
-
-

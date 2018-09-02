@@ -15,7 +15,8 @@
  *    }
  */
 
-import { CHANGE_USERNAME, LOAD_ORDER_PAGE, ITEM_LOADED, CUSTOMERS_LOADED, ITEM_SELECTED } from './constants';
+import { CHANGE_USERNAME, LOAD_ORDER_PAGE, ITEM_LOADED, CUSTOMERS_LOADED,
+  ITEM_SELECTED, ITEM_QTY_CHANGED, ADD_ITEMS_TO_ORDER } from './constants';
 
 /**
  * Changes the input field of the form
@@ -59,4 +60,21 @@ export function onItemSelect(itemId, error) {
     data: parseInt(itemId),
     error,
   };
+}
+
+export function onItemCountChange(qty) {
+  return {
+    type: ITEM_QTY_CHANGED,
+    data: parseInt(qty),
+  };
+}
+
+export function addItemsToOrder(qty, itemId) {
+  return {
+    type: ADD_ITEMS_TO_ORDER,
+    data: {
+      qty: parseInt(qty),
+      itemId: itemId
+    }
+  }
 }

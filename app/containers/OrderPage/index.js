@@ -8,8 +8,8 @@ import {
   makeSelectError
 } from './../App/selectors';
 import { loadRepos } from '../App/actions';
-import { changeUsername, loadItems, onItemSelect } from './actions';
-import { makeSelectAllItems, makeSelectAllCustomers } from './selectors';
+import { changeUsername, loadItems, onItemSelect, onItemCountChange, addItemsToOrder } from './actions';
+import { makeSelectAllItems, makeSelectAllCustomers, makeSelectSelectedItem } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import OrderPage from './OrderPage';
@@ -21,12 +21,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(loadRepos());
   },
   loadItems: () => {dispatch(loadItems())},
-  selectItem: (itemId)=> {dispatch(onItemSelect(itemId))}
+  selectItem: (itemId)=> {dispatch(onItemSelect(itemId))},
+  changeItemQty: (itemQty) => {dispatch(onItemCountChange(itemQty))},
+  addItemToOrder: (itemId, itemQty) => {dispatch(addItemsToOrder(itemId, itemQty))}
 });
 
 const mapStateToProps = createStructuredSelector({
   items: makeSelectAllItems(),
-  customers: makeSelectAllCustomers()
+  customers: makeSelectAllCustomers(),
+  selectedItem: makeSelectSelectedItem(),
 
   // username: makeSelectUsername(),
   // loading: makeSelectLoading(),

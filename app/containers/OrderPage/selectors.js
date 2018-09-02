@@ -20,8 +20,19 @@ const makeSelectAllCustomers = () => createSelector(
   (orderState) => orderState.get('customers')
 );
 
+const makeSelectSelectedItem = () => createSelector(
+  selectOrder,
+  (orderState) => orderState.get('selectedItem')
+);
+
+const makeSelectSelectedQty = () => createSelector(
+  selectOrder,
+  (orderState) => orderState.get('selectedQty')
+);
+
 export {
   selectOrder,
   makeSelectAllItems,
   makeSelectAllCustomers,
+  makeSelectSelectedItem,
 };

@@ -1,9 +1,9 @@
-import {call, put, select, takeLatest} from 'redux-saga/effects';
+import {call, put, select, takeLatest, takeEvery} from 'redux-saga/effects';
 import {reposLoaded, repoLoadingError, loadRepos} from './../App/actions';
 
 import request from 'utils/request';
 import {makeSelectUsername} from 'containers/HomePage/selectors';
-import {LOAD_ORDER_PAGE} from './constants'
+import {ADD_ITEMS_TO_ORDER, LOAD_ORDER_PAGE} from './constants'
 import {API_URL, API_ITEM_PATH, API_USERS_PATH} from "../../constants";
 import {itemsLoaded, customersLoaded} from './actions'
 import _ from 'lodash';
@@ -30,7 +30,7 @@ export function* loadOrderPageData() {
 
 
     const updatedItems = fromJS(mapApiItemsToViewItems(items));
-    const updatedUsers = fromJS(mapApiUserssToViewUsers(users));
+    const updatedUsers = fromJS(mapApiUsersToViewUsers(users));
     yield put(itemsLoaded(updatedItems));
     yield put(customersLoaded(updatedUsers));
 
@@ -55,7 +55,7 @@ const mapApiItemsToViewItems = (apiItems) => {
   return updatedItems
 };
 
-const mapApiUserssToViewUsers = (apitUsers) => {
+const mapApiUsersToViewUsers = (apitUsers) => {
   const mappedUsers = _.map(apitUsers, (user) => {
     const mappedUser = {
       id: user.ID,
@@ -77,3 +77,4 @@ const mapApiUserssToViewUsers = (apitUsers) => {
 export default function* loadItems() {
   yield takeLatest(LOAD_ORDER_PAGE, loadOrderPageData);
 }
+
